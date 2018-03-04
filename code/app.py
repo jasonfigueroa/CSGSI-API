@@ -14,7 +14,8 @@ app.secret_key = 'test' # omit this line if publishing this source code to a
 						# public location
 app.config['CORS_HEADERS'] = 'Content-Type'
 # cors = CORS(app, resources={r"/*": {"origins": ["http://localhost:5025", "http://localhost:50312"]}})
-cors = CORS(app, resources={r"/*": {"origins": "http://localhost:50312"}})
+# cors = CORS(app, resources={r"/*": {"origins": "http://localhost:50312"}})
+cors = CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 api = Api(app)
 
 @app.before_first_request
