@@ -31,7 +31,7 @@ class UserRegister(Resource):
 
 		# username && steam_id is not in db
 		if UserModel.find_by_username(username):
-			return {"message": "User with that name already exists."}, 400
+			return {"message": "User with that username already exists."}, 400
 
 		if UserModel.find_by_steam_id(steam_id):
 			return {"message": "User with that steam id already exists."}, 400

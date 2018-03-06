@@ -4,7 +4,6 @@ from models.user import UserModel
 def authenticate(username, password):
 	user = UserModel.find_by_username(username)
 	
-	# check
 	if user and check_password_hash(user.password, password):
 		return user
 
