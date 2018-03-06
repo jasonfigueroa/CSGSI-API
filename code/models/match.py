@@ -4,7 +4,7 @@ class MatchModel(db.Model):
     __tablename__ = 'match'
 
     id = db.Column(db.Integer, primary_key=True)
-    datetime_start = db.Column(db.String(80))
+    datetime_start = db.Column(db.Integer)
     minutes_played = db.Column(db.Integer)
     map_name = db.Column(db.String(80))
     team = db.Column(db.String(80))

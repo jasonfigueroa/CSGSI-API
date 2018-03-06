@@ -6,7 +6,7 @@ class Match(Resource):
     parser = reqparse.RequestParser()
 
     parser.add_argument('datetime_start',
-        type=str,
+        type=int,
         required=True,
         help="A start datetime is required"
     )
@@ -35,19 +35,17 @@ class Match(Resource):
         help="The team that won the match is required"
     )
 
-    @jwt_required
+    @jwt_required()
     def get(self, _id):
-        return {"message": "hello"}
-        match = MatchModel.find_by_id(_hello, current_identity.id)
+        match = MatchModel.find_by_id(_id, current_identity.id)
         if match and current_identity.id != match.user_id:
             return {"message": "Not authorized to view this content"}, 401
         if match:
             return match.json()
         return {"message": "Match not found"}, 404
 
-    @jwt_required
+    @jwt_required()
     def post(self):
-        return {"message": "hello"}
         data = Match.parser.parse_args()
 
         datetime_start = data['datetime_start']
