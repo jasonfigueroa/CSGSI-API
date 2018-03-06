@@ -24,6 +24,17 @@ class MatchModel(db.Model):
         self.round_win_team = round_win_team
 
     def json(self):
+        if self.match_stats:
+            return {
+                'id': self.id,
+                'user_id': self.user_id,
+                'datetime_start': self.datetime_start,
+                'minutes_played': self.minutes_played,
+                'map_name': self.map_name,
+                'team': self.team,
+                'round_win_team': self.round_win_team,
+                'match_stats': self.match_stats.json()
+            }
         return {
             'id': self.id,
             'user_id': self.user_id,
@@ -31,7 +42,7 @@ class MatchModel(db.Model):
             'minutes_played': self.minutes_played,
             'map_name': self.map_name,
             'team': self.team,
-            'round_win_team': self.round_win_team
+            'round_win_team': self.round_win_team,
         }
 
     @classmethod
