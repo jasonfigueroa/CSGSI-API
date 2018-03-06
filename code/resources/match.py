@@ -37,7 +37,7 @@ class Match(Resource):
 
     @jwt_required()
     def get(self, _id):
-        match = MatchModel.find_by_id(_id, current_identity.id)
+        match = MatchModel.find_by_id(_id)
         if match and current_identity.id != match.user_id:
             return {"message": "Not authorized to view this content"}, 401
         if match:

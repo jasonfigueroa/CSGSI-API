@@ -46,9 +46,8 @@ class MatchModel(db.Model):
         }
 
     @classmethod
-    def find_by_id(cls, _id, user_id):
-        subquery = cls.query.filter_by(id=_id)
-        return subquery.filter_by(user_id=user_id).first()
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
 
     def save_to_db(self):
         db.session.add(self)
