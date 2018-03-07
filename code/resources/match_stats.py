@@ -17,18 +17,6 @@ class MatchStats(Resource):
         help="Total kills are required"
     )
 
-    parser.add_argument('round_kills',
-        type=int,
-        required=True,
-        help="Round kills are required"
-    )
-
-    parser.add_argument('round_killhs',
-        type=int,
-        required=True,
-        help="Round kill headshots are required"
-    )
-
     parser.add_argument('assists',
         type=int,
         required=True,
@@ -68,8 +56,6 @@ class MatchStats(Resource):
         
         match_id = data['match_id']
         kills = data['kills']
-        round_kills = data['round_kills']
-        round_killhs = data['round_killhs']
         assists = data['assists']
         deaths = data['deaths']
         mvps = data['mvps']
@@ -78,8 +64,6 @@ class MatchStats(Resource):
         match_stats = MatchStatsModel(
             match_id,
             kills,
-            round_kills,
-            round_killhs,
             assists,
             deaths,
             mvps,

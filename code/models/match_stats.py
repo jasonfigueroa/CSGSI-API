@@ -5,8 +5,6 @@ class MatchStatsModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     kills = db.Column(db.Integer)
-    round_kills = db.Column(db.Integer)
-    round_killhs = db.Column(db.Integer)
     assists = db.Column(db.Integer)
     deaths = db.Column(db.Integer)
     mvps = db.Column(db.Integer)
@@ -16,11 +14,9 @@ class MatchStatsModel(db.Model):
     match = db.relationship('MatchModel', back_populates='match_stats')
     
 
-    def __init__(self, match_id, kills, round_kills, round_killhs, assists, deaths, mvps, score):
+    def __init__(self, match_id, kills, assists, deaths, mvps, score):
         self.match_id = match_id
         self.kills = kills
-        self.round_kills = round_kills
-        self.round_killhs = round_killhs
         self.assists = assists
         self.deaths = deaths
         self.mvps = mvps
@@ -31,8 +27,6 @@ class MatchStatsModel(db.Model):
             'id': self.id,
             'match_id': self.match_id,
             'kills': self.kills,
-            'round_kills': self.round_kills,
-            'round_killhs': self.round_killhs,
             'assists': self.assists, 
             'deaths': self.deaths, 
             'mvps': self.mvps, 
