@@ -30,7 +30,6 @@ class UserRegister(Resource):
 		steam_id = data['steam_id']
 		password = data['password']
 
-		# username && steam_id is not in db
 		if UserModel.find_by_username(username):
 			return {"message": "User with that username already exists."}, 400
 
