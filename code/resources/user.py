@@ -1,5 +1,6 @@
 from werkzeug.security import generate_password_hash
 from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required, current_identity
 from models.user import UserModel
 
 class UserRegister(Resource):
@@ -39,4 +40,15 @@ class UserRegister(Resource):
 		user = UserModel(username, steam_id, generate_password_hash(password))
 		user.save_to_db()
 		return {"message": "User created successfully."}, 201
+
+class UserSteamId(Resource):
+
+	@jwt_required()
+	def get(self):
+		user = UserModel.find_by_id(current_identity.id)
+		if user and user.id != current_identity.id:
+			return {"Not authorized to view this contnet"}, 401
+		if user:
+			return {"steam_id": user.steam_id}
+		return {"message": "Steam id not found"}, 404
 
