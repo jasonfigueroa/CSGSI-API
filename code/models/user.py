@@ -1,12 +1,14 @@
 from db import db
 
 class UserModel(db.Model):
-	__tablename__ = 'users'
+	__tablename__ = 'user'
 
 	id = db.Column(db.Integer, primary_key=True)
 	steam_id = db.Column(db.String(80))
 	username = db.Column(db.String(80))
 	password = db.Column(db.String(80))
+	
+	matches = db.relationship('MatchModel', lazy='dynamic')
 
 	def __init__(self, username, steam_id, password):
 		self.steam_id = steam_id
