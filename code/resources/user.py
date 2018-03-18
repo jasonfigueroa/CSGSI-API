@@ -51,3 +51,14 @@ class UserSteamId(Resource):
 			return {"steam_id": user.steam_id}
 		return {"message": "Steam id not found"}, 404
 
+class UsernameExists(Resource):
+	def get(self, username):
+		if UserModel.find_by_username(username):
+			return {"message": "User with that username already exists."}
+		return {"message": "That username is currently available."}
+
+class SteamIdExists(Resource):
+	def get(self, steam_id):
+		if UserModel.find_by_steam_id(steam_id):
+			return {"message": "User with that steam id already exists."}
+		return {"message": "That steam id is currently available."}

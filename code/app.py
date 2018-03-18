@@ -4,7 +4,7 @@ from flask_jwt import JWT
 from flask_cors import CORS
 
 from security import authenticate, identity
-from resources.user import UserRegister, UserSteamId
+from resources.user import UserRegister, UserSteamId, UsernameExists, SteamIdExists
 from resources.match import Match, MatchList
 from resources.match_stats import MatchStats
 
@@ -27,6 +27,8 @@ jwt = JWT(app, authenticate, identity)
 
 api.add_resource(UserRegister, '/register')
 api.add_resource(UserSteamId, '/user/steamid')
+api.add_resource(UsernameExists, '/usernameexists/<username>')
+api.add_resource(SteamIdExists, '/steamidexists/<steam_id>')
 api.add_resource(Match, '/match', '/match/<_id>')
 api.add_resource(MatchList, '/match/list')
 api.add_resource(MatchStats, '/matchstats', '/matchstats/<_id>')
