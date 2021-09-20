@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from flask_jwt import jwt_required, current_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.match_stats import MatchStatsModel
 
 class MatchStats(Resource):
@@ -44,7 +44,7 @@ class MatchStats(Resource):
     @jwt_required()
     def get(self, _id):
         match_stats = MatchStatsModel.find_by_id(_id)
-        if match_stats and match_stats.match.user_id != current_identity.id:
+        if match_stats and match_stats.match.user_id != get_jwt_identity():
             return {"message": "Not authorized to view this content"}, 401
         if match_stats:
             return match_stats.json()

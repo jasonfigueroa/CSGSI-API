@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from flask_jwt import jwt_required, current_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.match import MatchModel
 
 class Match(Resource):
@@ -38,7 +38,7 @@ class Match(Resource):
     @jwt_required()
     def get(self, _id):
         match = MatchModel.find_by_id(_id)
-        if match and current_identity.id != match.user_id:
+        if match and get_jwt_identity() != match.user_id:
             return {"message": "Not authorized to view this content"}, 401
         if match:
             return match.json()
@@ -54,7 +54,7 @@ class Match(Resource):
         team = data['team']
         round_win_team = data['round_win_team']
 
-        user_id = current_identity.id        
+        user_id = get_jwt_identity()        
 
         match = MatchModel(
             user_id,
@@ -75,6 +75,6 @@ class Match(Resource):
 class MatchList(Resource):
     @jwt_required()
     def get(self):
-        matches = [match.json() for match in MatchModel.query.all() if match.user_id == current_identity.id]
+        matches = [match.json() for match in MatchModel.query.all() if match.user_id == get_jwt_identity()]
 
         return {"matches": matches}
